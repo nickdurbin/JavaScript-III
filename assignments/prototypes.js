@@ -144,3 +144,50 @@ Humanoid.prototype.greet = function () {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villain(villAttrs) {
+    this.kick = villAttrs.kick;
+    this.punch = villAttrs.punch;
+    this.fireball = villAttrs.fireball;
+    Humanoid.call(this, villAttrs);
+    this.evilAttack = function () {
+      return `${this.name} fires a ${this.fireball} with their evil attack for 31 points of damage.`;
+    }
+  }
+
+  const volcano = new Villain({
+    kick: {
+      healthPoints: 8
+    },
+    punch: {
+      healthPoints: 7
+    },
+    fireball: {
+      healthPoints: 14
+    }
+  })
+
+  function Hero(heroAttrs) {
+    this.roundHouse = heroAttrs.roundHouse;
+    this.upperCut = heroAttrs.upperCut;
+    this.gammaRay = heroAttrs.gammaRay;
+    Humanoid.call(this, heroAttrs);
+    this.specialAttack = function () {
+      return `${this.name} used a special attack worth 24 points of damage.`;
+    }
+  }
+
+  const gammaBoy = new Hero({
+    roundhouse: {
+      healthPoints: 9
+    },
+    upperCut: {
+      healthPoints: 6
+    },
+    gammaRay: {
+      healthPoints: 13
+    }
+  })
+
+  console.log(volcano.kick);
+  console.log(gammaBoy.gammaRay);
