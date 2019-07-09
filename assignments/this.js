@@ -13,18 +13,18 @@
 
 // code example for Window Binding
 
-// let sayName = function() {
-//   console.log(this.name);
-// }
+let sayName = function() {
+  console.log(this.name);
+}
 
-// let me = {
-//   name: 'Nick',
-//   age: 35
-// }
+let me = {
+  name: 'Nick',
+  age: 35
+}
 
-// sayName();
-// window.name = 'Steve';
-// sayName();
+sayName();
+window.name = 'Steve';
+sayName();
 
 // Principle 2
 
