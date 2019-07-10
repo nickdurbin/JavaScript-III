@@ -62,7 +62,6 @@ function Humanoid(characteristic) {
   CharacterStats.call(this, characteristic);
 }
 
-Humanoid.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function () {
