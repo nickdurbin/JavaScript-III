@@ -156,6 +156,9 @@ Humanoid.prototype.greet = function () {
   }
 
   const volcano = new Villain({
+    team: 'Nasty Nine',
+    language: 'Fireash',
+    weapons: ['Axe', 'Fire Gun'],
     kick: {
       healthPoints: 8
     },
@@ -178,6 +181,9 @@ Humanoid.prototype.greet = function () {
   }
 
   const gammaBoy = new Hero({
+    team: 'Hero Guild',
+    language: 'Gargeon',
+    weapons: ['Katana', 'Pick of Destiny'],
     roundhouse: {
       healthPoints: 9
     },
