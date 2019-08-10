@@ -16,12 +16,33 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+function GameObject(attribute) {
+  this.createdAt = attribute.createdAt;
+  this.name = attribute.name;
+  this.dimensions = attribute.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(stat) {
+  this.healthPoints = stat.healthPoints;
+  GameObject.call(this, stat);
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,7 +53,21 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(characteristic) {
+  this.team = characteristic.team;
+  this.weapons = characteristic.weapons;
+  this.language = characteristic.language;
+  GameObject.call(this, characteristic);
+  CharacterStats.call(this, characteristic);
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +76,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +137,62 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villain(villAttrs) {
+    this.kick = villAttrs.kick;
+    this.punch = villAttrs.punch;
+    this.fireball = villAttrs.fireball;
+    Humanoid.call(this, villAttrs);
+    this.evilAttack = function () {
+      return `${this.name} fires a ${this.fireball} with their evil attack for 31 points of damage.`;
+    }
+  }
+
+  const volcano = new Villain({
+    team: 'Nasty Nine',
+    language: 'Fireash',
+    weapons: ['Axe', 'Fire Gun'],
+    kick: {
+      healthPoints: 8
+    },
+    punch: {
+      healthPoints: 7
+    },
+    fireball: {
+      healthPoints: 14
+    }
+  })
+
+  function Hero(heroAttrs) {
+    this.roundHouse = heroAttrs.roundHouse;
+    this.upperCut = heroAttrs.upperCut;
+    this.gammaRay = heroAttrs.gammaRay;
+    Humanoid.call(this, heroAttrs);
+    this.specialAttack = function () {
+      return `${this.name} used a special attack worth 24 points of damage.`;
+    }
+  }
+
+  const gammaBoy = new Hero({
+    team: 'Hero Guild',
+    language: 'Gargeon',
+    weapons: ['Katana', 'Pick of Destiny'],
+    roundhouse: {
+      healthPoints: 9
+    },
+    upperCut: {
+      healthPoints: 6
+    },
+    gammaRay: {
+      healthPoints: 13
+    }
+  })
+
+  console.log(volcano.kick);
+  console.log(gammaBoy.gammaRay);
